@@ -64,7 +64,7 @@ namespace TcpServer
                 Console.WriteLine("ipHostInfo  : " + Dns.GetHostName());
                 Console.WriteLine("ipHostInfo  : " + ipHostInfo);
 
-                IPAddress ipAddress = ipHostInfo.AddressList[0];
+                IPAddress ipAddress = ipHostInfo.AddressList[5];
                 IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 3315);
 
                 Console.WriteLine("IPAddress : " + ipAddress.ToString());
@@ -141,7 +141,7 @@ namespace TcpServer
                     // Check for end-of-file tag. If it is not there, read 
                     // more data.
                     content = state.sb.ToString();
-                    if (content.IndexOf("<EOF>") > -1)
+                    if (content.IndexOf("<EOL>") > -1)
                     {
                         // All the data has been read from the 
                         // client. Display it on the console.
@@ -223,7 +223,8 @@ namespace TcpServer
                 }
             }
 
-
+            IPAddress[] ipv4Addresses = Array.FindAll(
+                Dns.GetHostEntry(string.Empty).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
 
             
         }
